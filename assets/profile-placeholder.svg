@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Profile photo placeholder</title>
+  <desc id="desc">A quiet abstract placeholder for a personal homepage profile image.</desc>
+  <rect width="800" height="1000" fill="#dfe6e2"/>
+  <rect x="70" y="70" width="660" height="860" rx="18" fill="#f7f7f3"/>
+  <path d="M120 774c92-128 196-192 312-192 102 0 185 54 248 162v156H120Z" fill="#184e77"/>
+  <circle cx="400" cy="360" r="150" fill="#0d6b74"/>
+  <path d="M244 359c36-99 98-148 186-148 73 0 132 31 176 93-36-24-78-36-126-36-93 0-159 38-196 113Z" fill="#b84a2b" opacity=".95"/>
+  <path d="M187 884h426" stroke="#f7f7f3" stroke-width="18" stroke-linecap="round" opacity=".9"/>
+  <text x="400" y="878" text-anchor="middle" font-family="Arial, sans-serif" font-size="96" font-weight="700" fill="#f7f7f3">YN</text>
+</svg>
