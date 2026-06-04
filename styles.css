@@ -639,7 +639,13 @@ a {
     max-width: 100%;
 }
 
+.analytics-map img {
+    display: inline-block;
+    height: auto;
+}
+
 .analytics-map-link {
+    display: inline-block;
     color: #2563eb;
     font-size: 13px;
     text-decoration: none;
@@ -651,6 +657,32 @@ a {
 
 .analytics-map:empty {
     display: none;
+}
+
+/* Greeting Toast */
+.greeting-toast {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 200;
+    max-width: min(320px, calc(100vw - 32px));
+    padding: 12px 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: var(--shadow-lg);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.5;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(10px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.greeting-toast.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Responsive Design */
@@ -773,6 +805,11 @@ a {
         min-width: 110px;
         padding: 10px 12px;
     }
+
+    .greeting-toast {
+        right: 16px;
+        bottom: 16px;
+    }
 }
 
 /* Smooth Scrolling */
@@ -820,6 +857,10 @@ html {
     .analytics-stat {
         background: var(--bg-secondary);
         border-color: var(--border-color);
+    }
+
+    .greeting-toast {
+        background: rgba(37, 37, 37, 0.96);
     }
 
     .timeline-item::before {

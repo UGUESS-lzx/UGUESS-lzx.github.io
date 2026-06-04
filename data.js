@@ -316,6 +316,15 @@ window.siteData = {
     },
   ],
 
+  greetings: {
+    enabled: true,
+    welcome: "Welcome to my homepage!",
+    hover: "Hi, thanks for stopping by.",
+    welcomeDelay: 500,
+    duration: 3600,
+    hoverShowOnce: true
+  },
+
   analytics: {
     enabled: true,
     title: "Site Analytics",
@@ -324,6 +333,7 @@ window.siteData = {
     mapMyVisitorsToken: "bpPCDkGuzjBVGY2yARdp_Vhne9i8OzbBmQ-osa1PnKqM",
     mapMyVisitorsPage: "https://mapmyvisitors.com/web/1c53q",
     mapMyVisitors: {
+      embedType: "image",
       width: "a",
       textColor: "ffffff",
       theme: "",

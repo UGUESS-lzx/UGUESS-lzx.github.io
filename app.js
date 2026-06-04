@@ -215,6 +215,14 @@
     function renderAnalytics() {
         const analytics = data.analytics || {};
         if (analytics.enabled === false) return "";
+        const mapOptions = analytics.mapMyVisitors || {};
+        const mapToken = analytics.mapMyVisitorsToken;
+        const mapParams = new URLSearchParams();
+        if (mapToken) mapParams.set("d", mapToken);
+        if (mapOptions.textColor) mapParams.set("cl", mapOptions.textColor);
+        const mapImage = mapToken && mapOptions.embedType !== "script"
+            ? `<a href="${analytics.mapMyVisitorsPage || "#"}"${analytics.mapMyVisitorsPage ? externalAttrs(analytics.mapMyVisitorsPage) : ""} title="Visit tracker" class="analytics-map-link"><img src="https://mapmyvisitors.com/map.png?${mapParams.toString()}" alt="Visitor map"></a>`
+            : "";
 
         return `
             <section class="section site-analytics" id="site-analytics">
@@ -237,7 +245,7 @@
                 </div>
                 `}
                 <div class="analytics-map" id="mapmyvisitors-widget" aria-label="Visitor map">
-                    ${analytics.mapMyVisitorsPage ? `<a href="${analytics.mapMyVisitorsPage}"${externalAttrs(analytics.mapMyVisitorsPage)} class="analytics-map-link">Visitor map</a>` : ""}
+                    ${mapImage}
                 </div>
             </section>
         `;
@@ -260,7 +268,7 @@
 
         const mapToken = analytics.mapMyVisitorsToken;
         const mapTarget = byId("mapmyvisitors-widget");
-        if (mapToken && mapTarget && !document.getElementById("mapmyvisitors")) {
+        if (mapToken && mapTarget && analytics.mapMyVisitors?.embedType === "script" && !document.getElementById("mapmyvisitors")) {
             mapTarget.innerHTML = "";
             const options = analytics.mapMyVisitors || {};
             const params = new URLSearchParams();
@@ -278,6 +286,51 @@
             mapScript.src = `https://mapmyvisitors.com/map.js?${params.toString()}`;
             mapTarget.appendChild(mapScript);
         }
+    }
+
+    function setupGreetings() {
+        const greetings = data.greetings || {};
+        if (greetings.enabled === false) return;
+
+        const toast = document.createElement("div");
+        toast.className = "greeting-toast";
+        toast.setAttribute("role", "status");
+        toast.setAttribute("aria-live", "polite");
+        document.body.appendChild(toast);
+
+        let hideTimer;
+        let hoverShown = false;
+        let lastHoverTime = 0;
+        const duration = Number(greetings.duration) || 3600;
+        const welcomeDelay = Number(greetings.welcomeDelay) || 0;
+
+        const showGreeting = (message) => {
+            if (!message) return;
+            window.clearTimeout(hideTimer);
+            toast.textContent = message;
+            toast.classList.add("visible");
+            hideTimer = window.setTimeout(() => {
+                toast.classList.remove("visible");
+            }, duration);
+        };
+
+        window.setTimeout(() => {
+            showGreeting(greetings.welcome || "Welcome!");
+        }, welcomeDelay);
+
+        window.setTimeout(() => {
+            const showHoverGreeting = () => {
+                const now = Date.now();
+                if (greetings.hoverShowOnce !== false && hoverShown) return;
+                if (greetings.hoverShowOnce === false && now - lastHoverTime < duration + 1000) return;
+                hoverShown = true;
+                lastHoverTime = now;
+                showGreeting(greetings.hover || "Nice to meet you here.");
+            };
+
+            document.body.addEventListener("mouseover", showHoverGreeting);
+            document.body.addEventListener("mousemove", showHoverGreeting);
+        }, welcomeDelay + duration + 300);
     }
 
     function renderContent() {
@@ -335,4 +388,5 @@
     renderContent();
     setupInteractions();
     setupAnalytics();
+    setupGreetings();
 })();
