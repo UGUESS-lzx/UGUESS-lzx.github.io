@@ -330,7 +330,7 @@ window.siteData = {
     title: "Site Analytics",
     showCounters: false,
     counterScript: "",
-    mapMyVisitorsToken: "bpPCDkGuzjBVGY2yARdp_Vhne9i8OzbBmQ-osa1PnKqM",
+    mapMyVisitorsToken: "bpPCDkGuzjBVG2yaRdp_Vhne9i80zhBmQ-osalPnKqM",
     mapMyVisitorsPage: "https://mapmyvisitors.com/web/1c53q",
     mapMyVisitors: {
       embedType: "image",
